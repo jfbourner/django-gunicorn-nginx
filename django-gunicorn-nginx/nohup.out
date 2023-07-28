@@ -1,0 +1,15 @@
+Watching for file changes with StatReloader
+System check identified some issues:
+
+WARNINGS:
+?: (staticfiles.W004) The directory '/var/www/static/' in the STATICFILES_DIRS setting does not exist.
+
+System check identified 1 issue (0 silenced).
+Performing system checks...
+
+July 28, 2023 - 15:51:52
+Django version 4.2.3, using settings 'project.settings'
+Starting development server at http://127.0.0.1:8000/
+Quit the server with CONTROL-C.
+
+Exception ignored in atexit callback: <function _shutdown_resources at 0x123e78fe0>

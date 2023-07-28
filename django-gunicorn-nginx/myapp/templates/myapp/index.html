@@ -1,0 +1,39 @@
+{% load static %}
+<!DOCTYPE html>
+<head>
+  <title>OpenAI Quickstart</title>
+  <link rel="stylesheet" href="{% static 'myapp/css/bootstrap.min.css' %}">
+  <link rel="stylesheet" href="{% static 'myapp/css/main.css' %}">
+</head>
+
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="#">Navbar</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav">
+      <li class="nav-item active">
+        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Login</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+   <img class="main-page-banner" src="{% static 'myapp/images/ai.png' %}">
+  <h3>Search for what you need</h3>
+  <form action="/" method="post">
+    {% csrf_token %}
+    <input type="text" name="llam-search" placeholder="Enter Search" required />
+    <input type="submit" value="Search" />
+  </form>
+  {% if result %}
+
+  <div class="result">
+    <h4>Results</h4>
+    {{ result }}</div>
+  {% endif %}
+</body>
