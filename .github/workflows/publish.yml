@@ -21,9 +21,7 @@ jobs:
           context: .
           platforms: linux/arm64
           push: true
-          tags: gunicorn-django-app:${IMAGE_TAG}
-        env:
-          IMAGE_TAG: latest
+          tags: gunicorn-django-app:latest
  #docker build -t gunicorn-django-app:${IMAGE_TAG} .
   #job2:
   #  needs: job1
