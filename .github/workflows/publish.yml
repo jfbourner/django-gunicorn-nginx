@@ -24,7 +24,7 @@ jobs:
           platforms: linux/arm64
           push: true
           tags: |
-            ghcr.io/gunicorn-django-app:latest
+            ghcr.io/jfbourner/gunicorn-django-app:latest
           secrets: |
             GIT_AUTH_TOKEN=${{ secrets.GITHUB_TOKEN }}
  #docker build -t gunicorn-django-app:${IMAGE_TAG} .
