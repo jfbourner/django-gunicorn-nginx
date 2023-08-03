@@ -19,9 +19,9 @@ jobs:
           kubectl_version: v1.27.4
           helm_version: v3.12.2
       - name: Helm Deployment
-        run: helm upgrade python-app helm-charts/ --namespace deployment
+        run: helm upgrade python-app helm-charts/ --namespace development
       - name: verify deployment
-        run: helm test python-app --namespace deployment
+        run: helm test python-app --namespace development
 
 #  job1:
 #    runs-on: buildjet-4vcpu-ubuntu-2204-arm
