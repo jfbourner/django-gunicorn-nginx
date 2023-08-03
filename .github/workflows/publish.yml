@@ -50,8 +50,7 @@ jobs:
           token: '${{ github.token }}'
           values: |
             name: foobar
-          value-files: >-
-          [
+          value-files: [
             "github-values.yaml"
           ]
  #docker build -t gunicorn-django-app:${IMAGE_TAG} .
