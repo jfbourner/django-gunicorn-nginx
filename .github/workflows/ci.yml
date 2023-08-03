@@ -15,7 +15,7 @@ jobs:
       - name: deploy to cluster
         uses: bwvolleyball/k8s-toolkit@v1.0.0
         with: # defaults to latest kubectl & helm binary versions
-          config: ${{ secrets.KUBECONFIG }}
+          config: ${{ secrets.KUBECONFIG_B64 }}
           kubectl_version: v1.27.4
           helm_version: v3.12.2
       - name: Helm Deployment
