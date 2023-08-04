@@ -28,7 +28,8 @@ except KeyError as e:
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = [".jackbourner.co.uk", ".localhost", ".0.0.0.0", ".127.0.0.1"]
+ALLOWED_HOSTS = [".jackbourner.co.uk", ".localhost", ".0.0.0.0", ".127.0.0.1",
+                 ".python-app-v1"]
 
 # Application definition
 
@@ -115,12 +116,11 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = 'static/'
-#STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
-STATIC_ROOT = "/var/www/0.0.0.0/static"
-STATICFILES_DIRS = [
-    BASE_DIR / "myapp/static",
-    "/var/www/static/",
-]
+# STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
+STATIC_ROOT = "/var/www/dev.jackbourner.co.uk/static"
+STATICFILES_DIRS = [BASE_DIR / "static",
+                    "/var/www/static/",
+                    ]
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 

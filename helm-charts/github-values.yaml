@@ -1,3 +1,13 @@
 # Set secrets. Pulled from github secrets
 DJANGO_SECRET_KEY: ${{ secrets.DJANGO_SECRET_KEY }}
 OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+
+ingress:
+  annotations: {
+     cert-manager.io/cluster-issuer: letsencrypt-prod,
+     nginx.ingress.kubernetes.io/rewrite-target: /
+  }
+  tls:
+    - secretName: prod-tls
+      hosts:
+        - jackbourner.co.uk
