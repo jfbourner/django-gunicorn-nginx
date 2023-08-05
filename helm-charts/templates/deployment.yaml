@@ -39,7 +39,7 @@ spec:
             - -c
             - |
               mkdir -p /var/www/jackbourner.co.uk/static/myapp
-              cp -R myapp/static/myapp /var/www/jackbourner.co.uk/static/myapp
+              cp -R myapp/static/myapp/. /var/www/jackbourner.co.uk/static/myapp
               gunicorn --config ./config/gunicorn/dev.py
               sleep 5s
               tail -f /var/log/gunicorn/dev.log

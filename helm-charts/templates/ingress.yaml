@@ -62,3 +62,36 @@ spec:
           {{- end }}
     {{- end }}
 {{- end }}
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-dev
+    meta.helm.sh/release-name: python-app
+    meta.helm.sh/release-namespace: development
+  labels:
+    app.kubernetes.io/instance: reverse-proxy-depl
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: reverse-proxy-depl
+  name: static-files-ing
+  namespace: development
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: dev.jackbourner.co.uk
+    http:
+      paths:
+      - backend:
+          service:
+            name: reverse-proxy-svc
+            port:
+              number: 8080
+        path: /static/*
+        pathType: Prefix
+  tls:
+  - hosts:
+    - dev.jackbourner.co.uk
+    secretName: dev-tls
+status:
+  loadBalancer: {}
