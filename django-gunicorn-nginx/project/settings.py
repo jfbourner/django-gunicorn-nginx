@@ -26,7 +26,7 @@ except KeyError as e:
     raise RuntimeError("Could not find a SECRET_KEY in environment") from e
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = [".jackbourner.co.uk", ".localhost", ".0.0.0.0", ".127.0.0.1",
                  ".python-app-v1"]
@@ -115,11 +115,12 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
 # STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
-STATIC_ROOT = "/var/www/dev.jackbourner.co.uk/static"
+STATIC_ROOT = "/var/www/jackbourner.co.uk/static/myapp"
 STATICFILES_DIRS = [BASE_DIR / "static",
-                    "/var/www/static/",
+                    "/var/www/jackbourner.co.uk/static/myapp",
+                    ""
                     ]
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field

@@ -83,3 +83,12 @@ nodeSelector: {}
 tolerations: []
 
 affinity: {}
+
+sidecar:
+  nginx:
+    port: 8080
+    probe:
+      path: /
+      enabled: false
+      initialDelaySeconds: 10
+      livenessTimeOut: 10

@@ -38,6 +38,7 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
   deploy:
+    needs: build
     name: deploy to cluster
     runs-on: ubuntu-latest
     steps:

@@ -3,6 +3,7 @@ kind: Deployment
 metadata:
   name: {{ include "helm-charts.fullname" . }}
   labels:
+    injector.nsm.nginx.com/auto-inject: enabled
     {{- include "helm-charts.labels" . | nindent 4 }}
 spec:
   {{- if not .Values.autoscaling.enabled }}
@@ -37,6 +38,8 @@ spec:
             - /bin/sh
             - -c
             - |
+              mkdir -p /var/www/jackbourner.co.uk/static/myapp
+              cp -R myapp/static/myapp /var/www/jackbourner.co.uk/static/myapp
               gunicorn --config ./config/gunicorn/dev.py
               sleep 5s
               tail -f /var/log/gunicorn/dev.log
@@ -57,8 +60,59 @@ spec:
         #    httpGet:
         #      path: /
         #      port: http
+          volumeMounts:
+            - name: staticfiles
+              mountPath: /var/www/jackbourner.co.uk/static/myapp
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
+        - name: reverse-proxy-depl
+          image: nginx:1.25.1-alpine-slim
+          imagePullPolicy: Always
+          securityContext:
+            privileged: false
+            # Nginx must start as root to bind the proper port in the container.
+            allowPrivilegeEscalation: true
+            runAsNonRoot: false
+          ports:
+            - name: http
+              containerPort: {{ .Values.sidecar.nginx.port }}
+              protocol: TCP
+          volumeMounts:
+            - name: nginx-conf
+              mountPath: /etc/nginx/nginx.conf
+              subPath: nginx.conf
+              readOnly: true
+            - name: staticfiles
+              mountPath: /var/www/jackbourner.co.uk/static/myapp
+              readOnly: true
+          {{ if .Values.sidecar.nginx.probe.enabled }}
+          livenessProbe:
+            httpGet:
+              # When we can access this route, nginx is alive, but it is not ready (ie cannot serve
+              # traffic yet).
+              path: {{ .Values.sidecar.nginx.probe.path }}
+              port: {{ .Values.sidecar.nginx.port }}
+            timeoutSeconds: {{ .Values.sidecar.nginx.probe.livenessTimeOut }}
+          readinessProbe:
+            httpGet:
+              # The container cannot be ready (that is accepting traffic) until it can talk to the
+              # container. So we need to pass through nginx (with the port) to the container (with
+              # the path) to check this.
+              # Since it can take a few seconds, we have an initialDelaySeconds.
+              path: {{ .Values.sidecar.nginx.probe.path }}
+              port: {{ .Values.sidecar.nginx.port }}
+            initialDelaySeconds: {{ .Values.sidecar.nginx.probe.initialDelaySeconds }}
+            timeoutSeconds: {{ .Values.sidecar.nginx.probe.livenessTimeOut }}
+          {{- end }}
+      volumes:
+        - name: nginx-conf
+          configMap:
+            name: nginx-conf
+            items:
+              - key: nginx.conf
+                path: nginx.conf
+        - name: staticfiles
+          emptyDir: {}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

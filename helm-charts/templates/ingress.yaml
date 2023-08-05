@@ -15,13 +15,16 @@ apiVersion: extensions/v1beta1
 {{- end }}
 kind: Ingress
 metadata:
-  name: {{ $fullName }}
+  name: reverse-proxy-depl
   labels:
-    {{- include "helm-charts.labels" . | nindent 4 }}
-  {{- with .Values.ingress.annotations }}
+    app.kubernetes.io/instance: reverse-proxy-depl
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: reverse-proxy-depl
   annotations:
-    {{- toYaml . | nindent 4 }}
-  {{- end }}
+    cert-manager.io/cluster-issuer: letsencrypt-dev
+    meta.helm.sh/release-name: python-app
+    meta.helm.sh/release-namespace: development
+    nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
   {{- if and .Values.ingress.className (semverCompare ">=1.18-0" .Capabilities.KubeVersion.GitVersion) }}
   ingressClassName: {{ .Values.ingress.className }}
@@ -49,12 +52,12 @@ spec:
             backend:
               {{- if semverCompare ">=1.19-0" $.Capabilities.KubeVersion.GitVersion }}
               service:
-                name: {{ $fullName }}
+                name: reverse-proxy-svc
                 port:
-                  number: {{ $svcPort }}
+                  number: 8080
               {{- else }}
-              serviceName: {{ $fullName }}
-              servicePort: {{ $svcPort }}
+              serviceName: reverse-proxy-depl
+              servicePort: 8080
               {{- end }}
           {{- end }}
     {{- end }}
