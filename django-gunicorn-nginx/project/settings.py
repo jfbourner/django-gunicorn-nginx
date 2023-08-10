@@ -26,7 +26,7 @@ except KeyError as e:
     raise RuntimeError("Could not find a SECRET_KEY in environment") from e
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 POD_IP = os.environ.get('PYTHON_APP_V1_SERVICE_HOST','')
 ALLOWED_HOSTS = [".jackbourner.co.uk", ".localhost", ".0.0.0.0", ".127.0.0.1", "192.168.50.10",
                  ".python-app-v1", POD_IP]

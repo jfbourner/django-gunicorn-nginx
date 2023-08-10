@@ -24,7 +24,6 @@ metadata:
     cert-manager.io/cluster-issuer: letsencrypt-dev
     meta.helm.sh/release-name: python-app
     meta.helm.sh/release-namespace: development
-    nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
   {{- if and .Values.ingress.className (semverCompare ">=1.18-0" .Capabilities.KubeVersion.GitVersion) }}
   ingressClassName: {{ .Values.ingress.className }}
