@@ -25,7 +25,7 @@
 </nav>
    <img class="main-page-banner" src="{% static 'myapp/images/ai.png' %}">
   <h3>Search for what you need</h3>
-  <form action="/" method="post">
+  <form action="{%url 'index' %}" method="post">
     {% csrf_token %}
     <input type="text" name="llam-search" placeholder="Enter Search" required />
     <input type="submit" value="Search" />

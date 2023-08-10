@@ -27,9 +27,10 @@ except KeyError as e:
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
+POD_IP = os.environ.get('PYTHON_APP_V1_SERVICE_HOST','')
+ALLOWED_HOSTS = [".jackbourner.co.uk", ".localhost", ".0.0.0.0", ".127.0.0.1", "192.168.50.10",
+                 ".python-app-v1", POD_IP]
 
-ALLOWED_HOSTS = [".jackbourner.co.uk", ".localhost", ".0.0.0.0", ".127.0.0.1",
-                 ".python-app-v1"]
 
 # Application definition
 
@@ -115,14 +116,13 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = '/static/'
-# STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
-STATIC_ROOT = "/var/www/jackbourner.co.uk/static/myapp"
-STATICFILES_DIRS = [BASE_DIR / "static",
-                    "/var/www/jackbourner.co.uk/static/myapp",
-                    ""
-                    ]
+STATIC_URL = "static/"
+STATIC_ROOT = os.path.join(BASE_DIR, 'myapp/static/myapp/')
+STATICFILES_DIRS = []
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+#import mimetypes
+#mimetypes.add_type("text/css", ".css", True)

@@ -5,7 +5,7 @@ import mimetypes
 
 # Press ⌃R to execute it or replace it with your code.
 # Press Double ⇧ to search everywhere for classes, files, tool windows, actions, and settings.
-
+import os
 
 def print_hi(name):
     if True:
@@ -33,6 +33,10 @@ def print_hi(name):
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
+    POD_IP = os.environ.get('PYTHON_APP_V1_SERVICE_HOST','')
+    ALLOWED_HOSTS = [".jackbourner.co.uk", ".localhost", ".0.0.0.0", ".127.0.0.1", "192.168.50.10",
+                     ".python-app-v1", POD_IP]
     print_hi('PyCharm')
+    print(ALLOWED_HOSTS)
 
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/

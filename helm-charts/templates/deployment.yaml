@@ -65,7 +65,7 @@ spec:
               mountPath: /var/www/jackbourner.co.uk/static/myapp
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
-        - name: reverse-proxy-depl
+        - name: nginx-sidecar
           image: nginx:1.25.1-alpine-slim
           imagePullPolicy: Always
           securityContext:

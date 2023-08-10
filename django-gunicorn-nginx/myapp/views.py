@@ -13,6 +13,7 @@ field_names = ["text"]
 query_dict = {}
 reader = SimpleMongoReader(host, port)
 openai.api_key = os.environ["OPENAI_API_KEY"]
+base_url = "python"
 
 def index(request):
     response = ""

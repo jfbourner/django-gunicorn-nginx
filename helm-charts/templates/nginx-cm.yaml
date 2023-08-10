@@ -24,12 +24,14 @@ data:
         root /var/www/jackbourner.co.uk;
         location / {
           proxy_pass http://127.0.0.1:8000/;
-          proxy_set_header    Host $host;
           proxy_set_header    X-Forwarded-Proto $scheme;
         }
         location /static/myapp {
           autoindex on;
           alias /var/www/jackbourner.co.uk/static/myapp/;
+        }
+        location ~ \.css {
+          add_header Content-Type text/css;
         }
       }
     }
