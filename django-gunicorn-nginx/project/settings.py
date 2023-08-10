@@ -28,6 +28,11 @@ except KeyError as e:
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 POD_IP = os.environ.get('PYTHON_APP_V1_SERVICE_HOST','')
+CSRF_TRUSTED_ORIGINS = [
+    'https://dev.jackbourner.co.uk',
+    'https://jackbourner.co.uk',
+    'http://127.0.0.1',
+]
 ALLOWED_HOSTS = [".jackbourner.co.uk", ".localhost", ".0.0.0.0", ".127.0.0.1", "192.168.50.10",
                  ".python-app-v1", POD_IP]
 
@@ -123,6 +128,7 @@ STATICFILES_DIRS = []
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
 
 #import mimetypes
 #mimetypes.add_type("text/css", ".css", True)

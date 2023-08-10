@@ -24,7 +24,8 @@ data:
         root /var/www/jackbourner.co.uk;
         location / {
           proxy_pass http://127.0.0.1:8000/;
-          proxy_set_header    X-Forwarded-Proto $scheme;
+          proxy_set_header X-Forwarded-Proto $scheme;
+          proxy_set_header X-Forwarded-Host $host;
         }
         location /static/myapp {
           autoindex on;
